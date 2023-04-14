@@ -1,14 +1,30 @@
 import React from 'react';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import app from '../../firebase.config';
+import { Link } from 'react-router-dom';
 
 
-
+const auth = getAuth(app)
 const Login = () => {
 
 
 
     const handleLogin=(event)=>{
         event.preventDefault()
-        console.log(event.target.email)
+        const email = event.target.email.value
+        const password = event.target.password.value
+        console.log(email, password)
+
+        signInWithEmailAndPassword(auth, email, password)
+        .then(result=>{
+            // const loggedUser = result.user
+            console.log(result)
+        })
+        .catch(error=>{
+            console.log(error.message)
+        })
+
+
     }
 
     return (
@@ -22,6 +38,7 @@ const Login = () => {
                 <br />
                 <input type="submit" className='mb-3 rounded' value="Login" />
             </form>
+            <p>Already haven't a account? please <Link to="/register">Register</Link></p>
         </div>
     );
 };
