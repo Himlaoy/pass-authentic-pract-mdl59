@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {createUserWithEmailAndPassword, getAuth} from 'firebase/auth'
+import {createUserWithEmailAndPassword, getAuth, sendEmailVerification} from 'firebase/auth'
 import app from '../../firebase.config';
 import { Link } from 'react-router-dom';
 
@@ -34,6 +34,7 @@ const Register = () => {
         .then(result=>{
             const loggedUser = result.user
             console.log(loggedUser)
+            sendEmailVerify(loggedUser)
             setSuccess('log in successfully')
             event.target.reset()
             setError('')
@@ -44,6 +45,17 @@ const Register = () => {
         setError(error.message)
         setSuccess('')
      })
+
+
+     const sendEmailVerify = (user)=>{
+        sendEmailVerification(user)
+        .then(result=>{
+            const loggedUser = result.user
+            console.log(loggedUser)
+            alert('check your email')
+        })
+        
+    }
         
     }
 

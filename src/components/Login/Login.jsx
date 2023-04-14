@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, sendEmailVerification, signInWithEmailAndPassword } from 'firebase/auth';
 import app from '../../firebase.config';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -36,6 +36,7 @@ const Login = () => {
             const loggedUser = result.user
             console.log(loggedUser)
             event.target.reset()
+            
             setSuccess('logged in successfully')
             setError('')
         })
@@ -45,6 +46,9 @@ const Login = () => {
             setError(error.message)
         
         })
+
+
+        
 
 
     }
